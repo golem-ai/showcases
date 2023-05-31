@@ -1,4 +1,4 @@
-# showcases
+# Showcases
 [Golem.ai's](https://golem.ai/en/core) showcases of our NLU AI.
 
 ## Graph: K-pop
