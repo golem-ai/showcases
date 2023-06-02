@@ -1,0 +1,31 @@
+[MESSAGES CONTROL]
+
+# Disabled checks
+disable=raw-checker-failed,
+        bad-inline-option,
+        locally-disabled,
+        file-ignored,
+        suppressed-message,
+        useless-suppression,
+        deprecated-pragma,
+        use-symbolic-message-instead,
+        # Manually added
+        consider-using-f-string,
+        import-error,
+        logging-format-interpolation,
+        too-few-public-methods,
+        invalid-name,
+        too-many-instance-attributes,
+        too-many-arguments,
+        missing-function-docstring,
+        missing-class-docstring,
+        missing-module-docstring,
+        duplicate-code,
+        broad-exception-raised,
+
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=120
+
+[TYPECHECK]
+ignored-modules=neo4j
