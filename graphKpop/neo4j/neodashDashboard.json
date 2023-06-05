@@ -1,0 +1,124 @@
+{
+  "title": "K-pop subreddit",
+  "version": "2.2",
+  "settings": {
+    "pagenumber": 0,
+    "editable": true,
+    "fullscreenEnabled": false,
+    "parameters": {
+      "neodash_member_name": "Cho Miyeon",
+      "neodash_member_name_display": "Cho Miyeon"
+    },
+    "downloadImageEnabled": true
+  },
+  "pages": [
+    {
+      "title": "K-pop",
+      "reports": [
+        {
+          "title": "Graph K-pop",
+          "query": "# Graph K-pop\n\nWe retrieved the last 1000 posts from [Reddit's r/k-pop](https://www.reddit.com/r/kpop/)'s posts' titles,\nuse Golem.ai's Core analysis to interpret the data and then create a graph.\n\n![Golem Core](https://cdn.golem.ai/mail/logo-golem.ai-core-75.png)",
+          "width": 3,
+          "height": 3,
+          "x": 0,
+          "y": 0,
+          "type": "text",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "title": "Graph of events",
+          "query": "MATCH (n)-[e]->(m) RETURN n,e,m\n\n\n",
+          "width": 6,
+          "height": 3,
+          "x": 3,
+          "y": 0,
+          "type": "graph",
+          "selection": {
+            "member": "name",
+            "group": "name",
+            "soloArtist": "name"
+          },
+          "settings": {}
+        },
+        {
+          "title": "List of events",
+          "query": "\nMATCH events = (n)-[e]->(m) RETURN events, n.name,m.name, e.date, e.url ORDER BY e.url\n\n\n\n",
+          "width": 12,
+          "height": 2,
+          "x": 0,
+          "y": 3,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "title": "Find an artist",
+          "query": "MATCH (n:`member`) \nWHERE toLower(toString(n.`name`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`name` as value,  n.`name` as display ORDER BY size(toString(value)) ASC LIMIT 5",
+          "width": 3,
+          "height": 1,
+          "x": 9,
+          "y": 0,
+          "type": "select",
+          "selection": {},
+          "settings": {
+            "type": "Node Property",
+            "entityType": "member",
+            "propertyType": "name",
+            "propertyTypeDisplay": "name",
+            "parameterName": "neodash_member_name"
+          }
+        },
+        {
+          "title": "Artist's events",
+          "query": "MATCH (n)-[e]->(m) \nWHERE n.name = $neodash_member_name\nRETURN n,e,m\n\n\n",
+          "width": 3,
+          "height": 2,
+          "x": 9,
+          "y": 1,
+          "type": "graph",
+          "selection": {
+            "member": "name",
+            "group": "name"
+          },
+          "settings": {}
+        },
+        {
+          "title": "Number of events",
+          "query": "MATCH (n:member|soloArtist)-[r]->()\nWHERE NOT type(r) = 'IN'\nRETURN n.name as member, count(r) AS numberEvents\nORDER BY numberEvents DESC",
+          "width": 3,
+          "height": 2,
+          "x": 0,
+          "y": 5,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "title": "Number of dance challenges",
+          "query": "MATCH ()-[r:Dance_Challenge]->() \nRETURN count(r)\n\n\n",
+          "width": 3,
+          "height": 1,
+          "x": 3,
+          "y": 5,
+          "type": "value",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "title": "Number of Song Covers",
+          "query": "MATCH ()-[r:Song_Cover]->() \nRETURN count(r)\n\n\n",
+          "width": 3,
+          "height": 1,
+          "x": 3,
+          "y": 6,
+          "type": "value",
+          "selection": {},
+          "settings": {}
+        }
+      ]
+    }
+  ],
+  "parameters": {},
+  "extensions": {}
+}
