@@ -21,6 +21,13 @@ class Neo4j:
     def __cleanNodeString(self, node: str) -> str:
         return re.sub("[^0-9a-zA-Z _]+", "", node)
 
+    def __cleanAttribute(self, value: str) -> str:
+        return re.sub(
+            "[^0-9a-zA-Z _/:.)]+",
+            "",
+            re.sub(r"[^a-zA-Z0-9\-._~:/?#[\]@!$&\'()*+,;=]", "", value),
+        )
+
     def createNode(
         self, nodeName: str, nodeValue: str, attributes: Optional[dict[str, str]] = None
     ):
@@ -55,9 +62,10 @@ class Neo4j:
         )
         for key, value in actionAttribute.items():
             if len(value) == 1:
-                query += f" SET c.{NEO4J_CONFIG.action_attributes[key]} = '{value[0]}'"
+                query += f" SET c.{NEO4J_CONFIG.action_attributes[key]} = '{self.__cleanAttribute(value[0])}'"
             else:
-                query += f" SET c.{key} = '{value}'"
+                assert isinstance(value, str)
+                query += f" SET c.{key} = '{self.__cleanAttribute(value)}'"
 
         print(query)
         self.__runQuery(query)

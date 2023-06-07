@@ -2,6 +2,8 @@
 
 # Graph K-pop
 
+**Find the live showcase's dashboard [here](https://showcase.golem.ai/graph-kpop/neodash/) !**
+
 ![Dashboard](./public/dashboard.png)
 
 ---
@@ -48,7 +50,7 @@ This will start a Neo4J database, a NeoDash app, and a script which will read da
 
 The following applications are now available:
 - Neo4j: http://localhost:7474 _The graph database_
-- NeoDash: http://localhost:5005 _The visualiser of the graph database_
+- NeoDash: http://localhost:5005/graph-kpop/neodash/ _The visualiser of the graph database_
 
 You can run `make ps` to watch the state of your containers and `make logs` to check the script's state.
 

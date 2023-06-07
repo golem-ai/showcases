@@ -1,5 +1,5 @@
 HELP_TARGET_COLUMN_WIDTH = 40
-COMPOSE_RUN = docker compose run demo
+COMPOSE_RUN = docker compose run showcase
 
 .PHONY: help
 help:
@@ -14,11 +14,11 @@ init: ## init the stack.
 up: ## Creates the docker compose stack.
 	docker compose up -d --build
 	@echo Neo4j: "http://localhost:7474"
-	@echo NeoDash: "http://localhost:5005"
+	@echo NeoDash: "http://localhost:5005/graph-kpop/neodash/"
 
-.PHONY: up_demo
-up_demo: ## Creates the docker compose stack.
-	docker compose up -d --build demo
+.PHONY: up_showcase
+up_showcase: ## Creates the docker compose stack.
+	docker compose up -d --build showcase
 
 .PHONY: down
 down: ## Deletes the docker compose stack. Your local environment will no longer be accessible.
@@ -34,10 +34,10 @@ logs: ## Displays logs the graph-kpop container.
 
 .PHONY: db_clean
 db_clean: ## Removes every nodes and relationships in Neo4j
-	${COMPOSE_RUN} python3 /demo/src/bin/cleanDB.py
+	${COMPOSE_RUN} python3 /showcase/src/bin/cleanDB.py
 
 .PHONY: reset_data
-reset_data: db_clean up_demo ## Cleans the db, loads fixtures and load demo data
+reset_data: db_clean up_showcase ## Cleans the db, loads fixtures and load showcase data
 
 # Other shenanigans such as linters
 .PHONY: linters

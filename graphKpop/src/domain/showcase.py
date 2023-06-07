@@ -21,7 +21,7 @@ class Relation:
     attributes: dict[str, list[str]]
 
 
-class Demo:
+class Showcase:
     PARENT_LINK: str = "IN"
     NODE_ATTRIBUTE_VALUE: str = "Value"
 

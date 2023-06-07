@@ -7,7 +7,9 @@
     "fullscreenEnabled": false,
     "parameters": {
       "neodash_member_name": "Cho Miyeon",
-      "neodash_member_name_display": "Cho Miyeon"
+      "neodash_member_name_display": "Cho Miyeon",
+      "neodash_group_name": "The Wind",
+      "neodash_group_name_display": "The Wind"
     },
     "downloadImageEnabled": true
   },
@@ -37,13 +39,15 @@
           "selection": {
             "member": "name",
             "group": "name",
+            "show": "name",
+            "musicShow": "name",
             "soloArtist": "name"
           },
           "settings": {}
         },
         {
           "title": "List of events",
-          "query": "\nMATCH events = (n)-[e]->(m) RETURN events, n.name,m.name, e.date, e.url ORDER BY e.url\n\n\n\n",
+          "query": "\nMATCH events = (n)-[e]->(m) \nWHERE NOT type(e) = 'IN'\nRETURN events, n.name,m.name, e.date, e.url ORDER BY e.url\n\n\n\n",
           "width": 12,
           "height": 2,
           "x": 0,
@@ -114,6 +118,38 @@
           "y": 6,
           "type": "value",
           "selection": {},
+          "settings": {}
+        },
+        {
+          "title": "",
+          "query": "MATCH (n:`group`) \nWHERE toLower(toString(n.`name`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`name` as value,  n.`name` as display ORDER BY size(toString(value)) ASC LIMIT 5",
+          "width": 3,
+          "height": 1,
+          "x": 6,
+          "y": 5,
+          "type": "select",
+          "selection": {},
+          "settings": {
+            "type": "Node Property",
+            "entityType": "group",
+            "propertyType": "name",
+            "propertyTypeDisplay": "name",
+            "parameterName": "neodash_group_name"
+          }
+        },
+        {
+          "title": "Group's events",
+          "query": "MATCH (n)-[e]->(m) \nWHERE n.name = $neodash_group_name\nRETURN n,e,m\n\n",
+          "width": 3,
+          "height": 2,
+          "x": 6,
+          "y": 6,
+          "type": "graph",
+          "selection": {
+            "group": "name",
+            "member": "name",
+            "show": "name"
+          },
           "settings": {}
         }
       ]

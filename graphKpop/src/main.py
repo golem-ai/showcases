@@ -1,9 +1,10 @@
 import datetime
 
 from src.config.config import CONFIG
-from src.domain.demo import Demo
+from src.domain.showcase import Showcase
 from src.service.core.core import Core
 from src.service.core.response import Response
+from src.service.redditClient import RedditClient
 
 
 def cleanLines(lines: list[str]) -> list[str]:
@@ -19,7 +20,7 @@ def cleanLines(lines: list[str]) -> list[str]:
 
 def worker():
     if CONFIG.REDDIT_CLIENT_ID and CONFIG.REDDIT_CLIENT_SECRET:
-        ...  # RedditClient().getPosts()
+        RedditClient().getPosts()
 
     for file in CONFIG.DATA_FILES:
         print(f"{datetime.datetime.now()}\t\tGet text")
@@ -33,10 +34,10 @@ def worker():
         responses: list[Response] = Core.getAnalyses(analysesIDs)
 
         print(f"{datetime.datetime.now()}\t\tCreate graph")
-        graphDemo: Demo = Demo()
+        graphShowcase: Showcase = Showcase()
         for response in responses:
-            graphDemo.generateFromCoreResponse(response)
-        graphDemo.stop()
+            graphShowcase.generateFromCoreResponse(response)
+        graphShowcase.stop()
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  demo:
+  showcase:
     container_name: graph-kpop
     restart: on-failure
     build:
@@ -8,7 +8,7 @@ services:
       dockerfile: ./Dockerfile
     command:  /bin/bash -c "python3 -u src/main.py"
     volumes:
-      - .:/demo
+      - .:/showcase
 
   neo4j:
     image: neo4j:5.3.0
@@ -28,7 +28,7 @@ services:
       - NEO4JLABS_PLUGINS=["apoc"]
 
   neodash:
-    image: annesophie42/neodash:multiplatform
+    image: annesophie42/neodash:multiplatform-graph-kpop
     restart: on-failure
     container_name: graph-kpop-neodash
     hostname: neo4j
@@ -38,9 +38,9 @@ services:
       - ./neo4j/data:/data
     environment:
       - ssoEnabled=false
-      - standalone=true
+      - standalone=false
       - standaloneProtocol=neo4j
       - standaloneHost=localhost
       - standalonePort=7687
       - standaloneDatabase=neo4j
-      - standaloneDashboardURL=https://raw.githubusercontent.com/golem-ai/showcases/showcase-kpop/graphKpop/neo4j/neodashDashboardEditable.json
+      - standaloneDashboardURL=https://raw.githubusercontent.com/golem-ai/showcases/main/graphKpop/neo4j/neodashDashboard.json

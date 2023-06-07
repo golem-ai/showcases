@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 class Config:
     def __init__(self):
-        self.DATA_PATH: str = "/demo/src/data/"
+        self.DATA_PATH: str = "/showcase/src/data/"
         self.DATA_FILES: list[str] = [
             f"{self.DATA_PATH}kpopSubReddit.txt",
         ]
@@ -23,7 +23,7 @@ class Config:
 
         self.REDDIT_CLIENT_ID: str = os.getenv("REDDIT_CLIENT_ID", "")
         self.REDDIT_CLIENT_SECRET: str = os.getenv("REDDIT_CLIENT_SECRET", "")
-        self.REDDIT_USER_AGENT: str = "KpopDemo"
+        self.REDDIT_USER_AGENT: str = "KpopShowcase"
         self.REDDIT_FLAIR_TAGS: list[str] = [
             "[Dance Cover]".upper(),
             "[Song Cover]".upper(),
@@ -69,6 +69,8 @@ class Neo4JConfig:
             "flairCover",
             "flairNewRelease",
             "flairDanceChallenge",
+            "flairMusicShow",
+            "flairPerformance",
         ]
         """
             The action's attributes
@@ -78,6 +80,7 @@ class Neo4JConfig:
         self.action_attributes: dict[str, str] = {
             "date": "date",
             "url": "url",
+            "location": "location",
         }
 
 
