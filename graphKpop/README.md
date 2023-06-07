@@ -2,7 +2,7 @@
 
 # Graph K-pop
 
-**Find the live showcase's dashboard [here](https://showcase.golem.ai/graph-kpop/neodash/) !**
+**Find the live showcase's dashboard [here](https://showcase.golem.ai/graph-kpop/neodash/) !** _You can connect by clicking on 'Connect'_
 
 ![Dashboard](./public/dashboard.png)
 
